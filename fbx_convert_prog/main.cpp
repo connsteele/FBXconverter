@@ -272,7 +272,8 @@ public:
 		for (int ii = 0; ii < 200; ii++)
 			animmat[ii] = mat4(1);
 		
-		readtobone("test.fbx",&all_animation,&root);
+		readtobone("test.fbx",&all_animation,&root); //select what animation file to load
+		//readtobone("RBdance.fbx", &all_animation, &root); //This one breaks it bad
 		root->set_animations(&all_animation,animmat,animmatsize);
 		
 			
@@ -438,7 +439,8 @@ public:
 
 		//animation frame system
 		int animflen = 204; //frame duration of the animation
-		int anim_step_width_ms = 8490 / animflen; //204 is the number of frames in the anim
+		int animms = 8490; //time in Ms for the animation
+		int anim_step_width_ms = animms / animflen;
 		static int frame = 0;
 		if (totaltime_untilframe_ms >= anim_step_width_ms)
 			{
@@ -448,7 +450,7 @@ public:
 		root->play_animation(frame,"axisneurontestfile_Avatar00");	//name of current animation	
 
 		//reset the animaton when it finishes
-		if (frame == animflen)
+		if (frame == animflen - 1)
 		{
 			totaltime_untilframe_ms = 0;
 			frame = 0;
